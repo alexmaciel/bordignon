@@ -1,0 +1,50 @@
+<div
+  class="
+    d-flex
+    flex-column flex-column-fluid
+    bgi-position-y-bottom
+    position-x-center
+    bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
+    [style.background-image]="'url(./assets/images/error/404.png)'">
+    <section>
+      <div class="d-flex flex-column flex-column-fluid text-center">
+        <a (click)="routeToPage('/home')" class="mb-10 pt-lg-20 cursor-pointer">
+          <img
+            alt="Logo"
+            src="./assets/logos/default.svg"
+            class="h-50px mb-5"
+          />
+        </a>
+        <div class="pt-lg-10">
+          <router-outlet />
+          <div class="text-center">
+            <a
+              (click)="routeToPage('/home')"
+              class="btn btn-lg btn-primary fw-bolder cursor-pointer">
+              Voltar pra home
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-center flex-column-auto p-10">
+        <div class="d-flex align-items-center fw-bold fs-6">
+          <a
+            (click)="routeToPage('/escritorio')"
+            class="text-dark text-hover-primary px-3 cursor-pointer">
+            Escritório
+          </a>
+          <a
+            (click)="routeToPage('/servicos')"
+            class="text-dark text-hover-primary px-3 cursor-pointer">
+            Serviços
+          </a>
+          <a
+            (click)="routeToPage('/contato')"
+            class="text-dark text-hover-primary px-3 cursor-pointer">
+            Contato
+          </a>
+        </div>
+      </div>
+  </section>
+</div>

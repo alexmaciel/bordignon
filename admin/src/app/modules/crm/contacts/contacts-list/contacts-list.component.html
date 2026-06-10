@@ -1,0 +1,123 @@
+<div class="card b-5 mb-xl-8">
+    <div class="card-header border-0 pt-6">
+        <div class="card-title">
+            <h3 class="card-label fw-bolder fs-3 mb-1">{{'nav.contactNav' | translate }}</h3>
+        </div>
+        <div class="card-toolbar"></div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive angular-bootstrap-table">
+            <table
+                id="contatos-table" 
+                class="table table-head-custom align-middle table-row-dashed fs-6 gy-5">
+                <thead>
+                    <tr class="text-start text-muted fw-bolder text-uppercase fs-7 gs-0">
+                        <th class="w-10px pe-2">#</th>
+                        <th>
+                            {{ 'table.tab_name' | translate }}
+                            <app-sort-icon
+                                column="fullname"
+                                [activeColumn]="sorting.column"
+                                [activeDirection]="sorting.direction"
+                                (sort)="sort($event)">
+                            </app-sort-icon>
+                        </th>                           
+                        <th>
+                            {{ 'table.tab_company' | translate }}
+                            <app-sort-icon
+                                column="company"
+                                [activeColumn]="sorting.column"
+                                [activeDirection]="sorting.direction"
+                                (sort)="sort($event)">
+                            </app-sort-icon>
+                        </th> 
+                        <th>{{ 'table.tab_email' | translate }}</th> 
+                        <th>{{ 'table.tab_phone' | translate }}</th>   
+                        <th>
+                            {{ 'table.tab_dateCreated' | translate }}
+                            <app-sort-icon
+                                column="date"
+                                [activeColumn]="sorting.column"
+                                [activeDirection]="sorting.direction"
+                                (sort)="sort($event)">
+                            </app-sort-icon>
+                        </th>    
+                        <th>{{ 'table.tab_status' | translate }}</th>                    
+                        <th class="text-end"></th>                                                                           
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contact of contacts.items$ | async">
+                        <td>{{contact.id}}</td>
+                        <td>                  
+                            <div class="d-flex align-items-center">								
+                                <div class="symbol symbol-45px me-5 symbol-circle">
+                                    <span 
+                                        class="symbol-label text-primary fw-bold font-size-h4"
+                                        *ngIf="contact.profile_image == ''">
+                                        {{ contact.firstname[0] }}
+                                    </span>								                               						
+                                    <span class="symbol-label" *ngIf="contact.profile_image" [style.backgroundImage]="'url('+ contact.profile_image +')'"></span>
+                                </div>								
+                                <div class="d-flex justify-content-start flex-column">									
+                                    <div class="text-dark fw-bolder text-hover-primary fs-6">
+                                        {{ contact.fullname }}
+                                    </div>									
+                                    <a class="text-muted fw-bold text-muted d-block fs-7"></a>
+                                </div>
+                            </div>                        
+                        </td>                                            
+                        <td class="fw-bolder text-muted">
+                            {{ contact.company }}
+                        </td>  
+                        <td>
+                            <a [href]="'mailto:' + contact.email" class="fw-bolder text-muted text-hover-primary mb-1">
+                                {{ contact.email }}
+                            </a>
+                        </td> 
+                        <td class="fw-bolder text-muted">
+                            {{ contact.phonenumber }}
+                        </td>     
+                        <td>
+                            <div class="fw-bolder text-primary mb-0">{{ contact.date | datelocale }}</div> 
+                        </td>
+                        <td>
+                            <span class="badge py-3 px-4 fs-7" 
+                                [class.badge-light-success]="contact.active == 1"
+                                [class.badge-light-danger]="contact.active == 0">
+                                <ng-container *ngIf="contact.active == 1">{{ 'form.statusActiveField' | translate }}</ng-container>
+                                <ng-container *ngIf="contact.active == 0">{{ 'form.statusDeactiveField' | translate }}</ng-container>
+                            </span>                
+                        </td>   
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end flex-shrink-0">
+                                <button 
+                                    class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                    (click)="edit(contact.id)">
+                                    <span
+                                        [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                                        class="svg-icon svg-icon-3">
+                                    </span>                                                    
+                                </button>
+                                <button 
+                                    class="btn btn-icon btn-active-light-danger w-30px h-30px me-3"
+                                    (click)="delete(contact.id)">
+                                    <span
+                                        [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+                                        class="svg-icon svg-icon-3">
+                                    </span>                                                    
+                                </button>  
+                            </div>                            
+                        </td>                     
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+        <app-paginator
+            class="d-flex justify-content-between align-items-center flex-wrap py-4"
+            [paginator]="paginator"
+            [isLoading]="isLoading"
+            (paginate)="paginate($event)">
+        </app-paginator>          
+    </div>
+</div>

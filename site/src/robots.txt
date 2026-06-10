@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://bordignonadvogados.com.br/sitemap.xml

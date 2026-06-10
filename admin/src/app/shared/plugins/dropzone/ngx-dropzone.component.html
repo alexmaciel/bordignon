@@ -1,0 +1,32 @@
+<div class="dropzone flex">
+    <div
+        class="dz-wrapper" 
+        [ngx-dropzone]="config" 
+        [disabled]="disabled" 
+        (init)="init.emit($event)"
+        (drop)="onFileDropped($event)"
+        (change)="onBrowseHandler($event)">
+        <div class="dz-clickable"></div>
+        <div class="dz-message" [class.disabled]="disabled">
+            <app-keenicon name="file-up" class="text-primary fs-3x"></app-keenicon>
+            <div class="ms-4">
+                <h3 class="fs-5 fw-bold text-gray-900 mb-1" [innerHTML]="config.dictDefaultMessage || message"></h3>
+                <span class="fs-7 fw-semibold text-gray-500">Upload up to 10 files</span>
+            </div>                    
+        </div>
+    </div>
+    <div class="dz-image-preview" *ngIf="config.listFiles">
+        <div class="dz-single" *ngFor="let file of files; let i = index">
+            <div class="dz-preview">
+                <div class="dz-image" *ngIf="processingThumbnail"><img data-dz-thumbnail [src]="file.dataURL" [alt]="file.name" /></div>
+                <div class="dz-details">
+                    <div class="dz-filename">{{ file.name }}</div>
+                    <div class="dz-size"><strong>{{ formatBytes(file.size) }}</strong></div>
+                </div>
+            </div>
+            <div class="dz-remove" (click)="removeFile(file)">
+                <app-keenicon name="cross" class="fs-1"></app-keenicon>
+            </div>
+        </div>
+    </div>         
+</div>

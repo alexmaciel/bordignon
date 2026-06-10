@@ -1,0 +1,7 @@
+<!--Content container-->
+<div 
+    class="app-container-fit-desktop"
+    [ngClass]="appContentContainerClass"
+    [ngClass]="{'container-xxl': appContentContainer === 'fixed', 'container-fluid': appContentContainer === 'fluid'}">
+    <router-outlet />
+</div>

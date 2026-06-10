@@ -1,0 +1,367 @@
+//
+// Header
+//
+
+// General mode
+.app-header {
+    display: flex;
+    align-items: stretch;    
+    color: var(--#{$prefix}text-dark);
+    
+    .app-header-wrapper {
+        display: flex;
+        align-items: stretch;    
+        //background-color: var(--#{$prefix}app-header-base-bg-color);
+        box-shadow: var(--#{$prefix}app-header-base-box-shadow);
+        //border-bottom: var(--#{$prefix}app-header-base-border-bottom);
+        transition: $app-header-base-transition;           
+        
+        @include property( z-index, $app-header-fixed-z-index); 
+    }
+    
+    .app-header-container {
+        width: 100%;
+    }
+
+	.burger-icon {
+		@include  burger-icon-build($burger-icon-config);
+	}
+
+    .burger-icon {
+        @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+    }	    
+}
+
+.app-header {
+    
+    [data-mv-app-header-color="color"] & {
+        color: var(--#{$prefix}text-white);
+
+        .menu {
+            .menu-item {
+                @include menu-link-default-state( 
+                    $title-color: var(--#{$prefix}text-white), 
+                    $icon-color: var(--#{$prefix}text-white), 
+                    $bullet-color: var(--#{$prefix}text-white), 
+                    $arrow-color: var(--#{$prefix}text-white),
+                    $bg-color: null
+                );
+            }   
+        }
+
+        .svg-icon {
+            color: var(--#{$prefix}text-white);
+        }     
+
+        .burger-icon {
+            @include  burger-icon-theme(get($burger-icon-config, theme, default), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+        }	           
+    }   
+
+    // General
+    .menu {
+        .menu-item {
+            @include menu-link-default-state( 
+                $title-color: var(--#{$prefix}text-dark), 
+                $icon-color: var(--#{$prefix}text-dark), 
+                $bullet-color: var(--#{$prefix}text-dark), 
+                $arrow-color: var(--#{$prefix}text-dark),
+                $bg-color: null
+            );  
+            
+            @include menu-link-active-state( 
+                $title-color: var(--#{$prefix}text-primary), 
+                $icon-color: var(--#{$prefix}text-primary), 
+                $bullet-color: var(--#{$prefix}text-primary), 
+                $arrow-color: var(--#{$prefix}text-primary), 
+                $bg-color: null
+            );             
+        } 
+    }
+            
+    [data-mv-app-header-sticky="true"][data-mv-app-header-color="color"] & {
+        color: var(--#{$prefix}text-dark);
+
+        .menu {
+            .menu-item {
+                @include menu-link-default-state( 
+                    $title-color: var(--#{$prefix}text-dark), 
+                    $icon-color: var(--#{$prefix}text-dark), 
+                    $bullet-color: var(--#{$prefix}text-dark), 
+                    $arrow-color: var(--#{$prefix}text-dark),
+                    $bg-color: null
+                );
+            }   
+        }
+
+        .burger-icon {
+            @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+        }	               
+    }
+		
+	[data-mv-app-aside-minimize="on"] & {
+        .app-header-menu {
+            .menu {
+                .menu-item {
+                    @include menu-link-default-state( 
+                        $title-color: var(--#{$prefix}text-dark), 
+                        $icon-color: var(--#{$prefix}text-dark), 
+                        $bullet-color: var(--#{$prefix}text-dark), 
+                        $arrow-color: var(--#{$prefix}text-dark),
+                        $bg-color: null
+                    );
+                }   
+            }
+        }
+
+		.burger-icon {
+			@include  burger-icon-active($burger-icon-config);
+            @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+		}  		
+	}
+
+	[data-mv-app-aside-minimize="on"][data-mv-app-header-color="color"] & {
+		.burger-icon {
+            @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+		}  		
+	}	    
+}
+
+
+// General menu mode
+.app-header-menu,
+.app-header-social {        
+    .menu {
+
+        // Root
+        .menu-item {
+            .menu-link {
+                .menu-title {
+                    text-transform: uppercase;
+                    font-weight: $font-weight-semibold;
+                    letter-spacing: 0.1rem;                    
+                }
+            }    
+        }        
+    }
+}
+
+.app-header-social {
+    position: absolute;
+    right: auto;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;   
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;  
+    justify-content: flex-start;
+    -webkit-writing-mode: vertical-lr;
+    -ms-writing-mode: tb-lr;
+    writing-mode: vertical-lr;
+
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+
+    pointer-events: none;
+    z-index: 9999981; 	
+
+	// Desktop mode
+	@include media-breakpoint-up(lg) {
+		height: 94vh;
+	}
+
+	// Mobile mode
+	@include media-breakpoint-down(lg) {
+        display: none;
+		height: 100vh;
+	}	
+
+    .menu {
+        // Root
+        .menu-item {
+            pointer-events: auto;
+
+            .menu-link {
+                .menu-title {
+                    text-transform: uppercase;
+                    font-weight: $font-weight-light;
+                    letter-spacing: 0.1rem;
+                }
+            }    
+        } 
+    }
+}	
+
+// Desktop mode
+@include media-breakpoint-up(lg) {
+    // Base
+    .app-header {
+        @include property( z-index, $app-header-base-z-index);  
+    }    
+
+    // Vars
+    :root {
+        --#{$prefix}app-header-height: #{$app-header-base-height};
+        --#{$prefix}app-header-height-actual: #{$app-header-base-height};
+
+        [data-mv-app-header-fixed="true"] {
+            --#{$prefix}app-header-height: #{$app-header-base-height};
+            --#{$prefix}app-header-height-actual: calc(#{$app-header-base-height} + #{$app-top-base-height});
+        }
+
+        [data-mv-app-header-sticky="true"] {
+            --#{$prefix}app-header-height: #{$app-header-sticky-height};
+            --#{$prefix}app-header-height-actual: #{$app-header-base-height};
+        }        
+    }    
+
+    // States
+    .app-header {          
+        height: var(--#{$prefix}app-header-height);  
+
+        [data-mv-app-header-fixed="true"] & {
+            @include property( z-index, $app-header-fixed-z-index);
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;      
+            
+            .app-header-wrapper {
+                @include property( padding-left, $app-sidebar-base-gap-start);
+                @include property( padding-right, $app-sidebar-base-gap-end);  
+            }            
+        }
+
+        [data-mv-app-header-static="true"] & {
+            position: relative;
+        }        
+
+        .svg-icon {
+            line-height: 1;
+            color: var(--#{$prefix}text-primary);
+            @include svg-icon-size($font-size-base * 16);
+        }  
+
+        [data-mv-app-header-sticky="true"] & {
+            transition: $app-header-sticky-transition; 
+
+            .app-header-wrapper {
+                -webkit-backdrop-filter: blur(12px);
+                backdrop-filter: blur(12px);     
+                              
+                @include property( z-index, $app-header-sticky-z-index);
+        
+                background-color: var(--#{$prefix}app-header-sticky-bg-color);
+                box-shadow: var(--#{$prefix}app-header-sticky-box-shadow);
+                border-bottom: var(--#{$prefix}app-header-sticky-border-bottom);
+            }
+
+            .svg-icon {
+                color: var(--#{$prefix}text-secondary);
+                @include svg-icon-size($font-size-base * 9);
+            }    
+
+            .burger-icon {
+                @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+            }              
+            
+            .menu {
+                // General
+                .menu-item {
+                    @include menu-link-default-state( 
+                        $title-color: var(--#{$prefix}text-dark), 
+                        $icon-color: var(--#{$prefix}text-dark), 
+                        $bullet-color: var(--#{$prefix}text-dark), 
+                        $arrow-color: var(--#{$prefix}text-dark),
+                        $bg-color: null
+                    );  
+
+                    @include menu-link-active-state( 
+                        $title-color: var(--#{$prefix}text-primary), 
+                        $icon-color: var(--#{$prefix}text-primary), 
+                        $bullet-color: var(--#{$prefix}text-primary), 
+                        $arrow-color: var(--#{$prefix}text-primary), 
+                        $bg-color: null
+                    );                      
+                }
+            }            
+        }         
+    }    
+
+    // Integration
+}
+
+// Tablet & mobile modes
+@include media-breakpoint-down(lg) {
+    .app-header {
+        @include property( z-index, $app-header-fixed-z-index-mobile); 
+    }
+    
+    // Vars
+    :root {
+        --#{$prefix}app-header-height: #{$app-header-base-height-mobile};
+        --#{$prefix}app-header-height-actual: #{$app-header-base-height-mobile};
+
+        [data-mv-app-header-sticky="true"] {
+            --#{$prefix}app-header-height: #{$app-header-sticky-height-mobile};
+            --#{$prefix}app-header-height-actual: #{$app-header-base-height-mobile};
+        }       
+    } 
+
+    // States
+    .app-header {
+        @include property( z-index, $app-header-fixed-z-index-mobile);
+
+        height: var(--#{$prefix}app-header-height);  
+        align-items: stretch;
+
+        // Integration
+        .app-header-menu {   
+            display: none!important;
+        }   
+        
+        .svg-icon {
+            color: var(--#{$prefix}text-primary-light);
+            @include svg-icon-size($font-size-base * 8.5);
+            width: 324px;
+        }  
+
+        [data-mv-app-header-fixed="true"] & {
+            @include property( z-index, $app-header-fixed-z-index);
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;                
+        }        
+
+        [data-mv-app-header-sticky="true"] & {
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);            
+            @include property( z-index, $app-header-sticky-z-index);
+    
+            background-color: var(--#{$prefix}app-header-sticky-bg-color);
+            box-shadow: var(--#{$prefix}app-header-sticky-box-shadow);
+            border-bottom: var(--#{$prefix}app-header-sticky-border-bottom);
+            transition: $app-header-sticky-transition;  
+            
+            .burger-icon {
+                @include  burger-icon-theme(get($burger-icon-config, theme, dark, color), get($burger-icon-config, theme, hover), get($burger-icon-config, theme, active));
+            }   
+            
+            .svg-icon {
+                line-height: 1;
+                //color: var(--#{$prefix}text-secondary);
+                @include svg-icon-size($font-size-base * 8);
+                width: 284px;
+            }                  
+        }         
+    }
+}
+
+

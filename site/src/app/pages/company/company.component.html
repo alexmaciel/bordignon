@@ -1,0 +1,175 @@
+<div class="page-company">
+    <section class="page-title">
+        <div class="app-content-container">
+            <div class="container-xxl">
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="d-flex flex-grow-1 flex-lg-grow-0 w-lg-25 d-none d-lg-block"></div>
+                    <div class="d-flex align-items-center justify-content-start flex-lg-grow-1 ms-0">
+                        <div class="d-flex flex-column flex-wrap">
+                            <h1 class="fs-4x fw-bold text-white">
+                                Escritório
+                            </h1> 
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class="filters">
+                        <div class="filters-menu">
+                            <div class="filter-menu d-flex flex-row align-items-start justify-content-start ms-2">
+                                <div class="d-flex flex-column me-6 me-lg-12" data-link-scroll>
+                                    <a href="#escritorio"  class="filter-link app-link-scroll my-5 my-lg-0">
+                                        <span>
+                                            Quem Somos
+                                        </span>
+                                    </a>  
+                                </div>
+                                <div class="d-flex flex-column me-6 me-lg-12" data-link-scroll>
+                                    <a href="#visao"  class="filter-link app-link-scroll my-5 my-lg-0">
+                                        <span>
+                                            Visão
+                                        </span>
+                                    </a>  
+                                </div>   
+                                <div class="d-flex flex-column me-0" data-link-scroll>
+                                    <a href="#socios"  class="filter-link app-link-scroll my-5 my-lg-0">
+                                        <span>
+                                            Sócios
+                                        </span>
+                                    </a>  
+                                </div>                                                                     
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-white" id="escritorio">
+        <div class="app-container">
+            <div class="container-xxl">
+                <div class="company-desc">
+                    <div class="row">
+                        <div class="col-lg-3 col-xl-3 my-2">        
+                            <span class="fs-5 ls-2 text-muted text-uppercase">
+                                Quem somos
+                            </span>
+                        </div>  
+                        @if(company.items$ | async; as company) {
+                            <div class="col-lg-9 col-xl-8">   
+                                <div class="d-flex flex-column flex-wrap align-items-start">                               
+                                    <div class="fs-1 fw-normal" [innerHTML]="company.long_description | safe:'html'"></div>
+                                </div>                   
+                            </div>                                                      
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-white">
+        <div class="app-container">            
+            <div class="container-xxl">
+                @if(company.items$ | async; as company) {
+                    <ngx-swiper swiperContainerId="gallery-company-slider" [config]="config">
+                        <swiper-container #swiper class="slider" init="false">                        
+                            @for (pic of gallery.items$ | async; track pic.id) {
+                                <swiper-slide class="w-100 w-lg-75 h-400px h-lg-600px">
+                                    <div 
+                                        class="slider-slide">
+                                        <div class="container-image">
+                                            <img 
+                                                [ngSrc]="company.folder + pic.file_name" ngSrcset="100w" sizes="100vw" priority fill
+                                                [alt]="pic.original_file_name" 
+                                                class="image" 
+                                            />
+                                        </div>  
+                                    </div>
+                                </swiper-slide>                                  
+                            }
+                        </swiper-container>     
+                        <div class="position-relative">
+                            <div class="swiper-pagination company-pagination"></div>
+                        </div>                        
+                    </ngx-swiper>                    
+                }                
+            </div>
+        </div>
+    </section>    
+    <section id="visao">
+        <div class="app-container">
+            <div class="container-xxl">
+                <div class="company-desc">
+                    <div class="row">
+                        <div class="col-lg-3 col-xl-3 my-2">        
+                            <span class="fs-5 ls-2 text-muted text-uppercase">
+                                Nossos Valores
+                            </span>
+                        </div> 
+                        <div class="col-lg-9 col-xl-8">   
+                            <div class="row g-8 g-lg-10">
+                                @for(item of items.items$ | async; track item.id) {
+                                    <div class="col-lg-4">
+                                        <div class="d-flex flex-column flex-wrap align-items-start"> 
+                                            <h4 class="fs-4 fw-bold text-primary">
+                                                {{ item.name }}               
+                                            </h4>   
+                                            <div class="fs-normal fw-normal" [innerHTML]="item.description | safe:'html'"></div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>     
+    <section id="socios">
+        <div class="app-container">
+            <div class="container-xxl">
+                <div class="company-desc">
+                    <div class="row">
+                        <div class="col-lg-3 col-xl-3 my-2">        
+                            <span class="fs-5 ls-2 text-muted text-uppercase">
+                                Sócios
+                            </span>
+                        </div> 
+                        <div class="col-lg-9 col-xl-8">
+                            @for (team of teams.items$ | async; track team.id) {
+                                <div class="card card-flush card-shadow-none rounded-0 mb-8">
+                                    <div class="row g-0">
+                                        <div class="col-auto">                                            
+                                            <div class="container-image h-250px w-250px rounded-pill">
+                                                <img 
+                                                    [ngSrc]="team.file_avatar" 
+                                                    ngSrcset="100w, 1000w" sizes="(max-width: 540px) 100vw, (max-width: 768px) 50vw, calc(1600px / 4)" placeholder="40" loading="lazy" fetchpriority="auto" fill  
+                                                    [alt]="team.name" 
+                                                    class="image" 
+                                                    style="position: initial;"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-column flex-wrap align-items-start"> 
+                                                    <h4 class="fs-4 fw-bold text-primary">
+                                                        {{ team.name }}
+                                                    </h4>   
+                                                    <span class="text-uppercase mb-4">{{ team.employer }}</span>
+                                                    <p class="text-muted" [innerHTML]="team.description | safe:'html'"></p>
+                                                    <p>&nbsp;</p>
+                                                    <span class="text-uppercase mb-1">{{ team.phonenumber }}</span>
+                                                    <a class="text-secondary">{{ team.email }}</a>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div>                     
+                                </div>                       
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>           
+</div>

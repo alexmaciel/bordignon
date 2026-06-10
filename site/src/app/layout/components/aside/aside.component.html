@@ -1,0 +1,76 @@
+<div class="app-aside-content">
+	<div class="app-aside-menu flex-lg-column-fluid">
+		<div class="app-aside-body">
+			<div class="app-aside-container">
+				<div class="app-aside-grid">				
+					<div class="app-aside-grid-col right">
+						<div class="app-aside-title">
+							Menu
+						</div>						
+						<div
+							class="
+							menu
+							menu-column
+							fw-bold
+							fs-2x"> 
+							<div class="menu-item me-6 me-lg-12" data-cursor="show exclusion">
+								<a class="menu-link without-sub py-1 ps-0" [routerLink]="['/home']" routerLinkActive="active" [ngClass]="calculateMenuItemCssClass('/home')">
+									<em>
+										<span [title]="'Home'">Home</span>
+									</em>										
+									<span class="menu-title">
+										Home
+									</span>
+								</a>
+							</div>									
+							<div class="menu-item me-6 me-lg-12" data-cursor="show exclusion">
+								<a class="menu-link without-sub py-1 ps-0" [routerLink]="['/escritorio']" routerLinkActive="active" [ngClass]="calculateMenuItemCssClass('/escritorio')">
+									<em>
+										<span [title]="'Escritório'">Escritório</span>
+									</em>										
+									<span class="menu-title">
+										Escritório
+									</span>
+								</a>
+							</div>			
+							<div class="menu-item me-6 me-lg-12" data-cursor="show exclusion">
+								<a class="menu-link without-sub py-1 ps-0" [routerLink]="['/servicos']" routerLinkActive="active" [ngClass]="calculateMenuItemCssClass('/servicos')">
+									<em>
+										<span [title]="'Serviços'">Serviços</span>
+									</em>										
+									<span class="menu-title">
+										Serviços
+									</span>
+								</a>
+							</div>									
+							<div class="menu-item me-6 me-lg-12" data-cursor="show exclusion">
+								<a class="menu-link without-sub py-1 ps-0" [routerLink]="['/contato']" routerLinkActive="active" [ngClass]="calculateMenuItemCssClass('/contato')">
+									<em>
+										<span [title]="'Contato'">Contato</span>
+									</em>										
+									<span class="menu-title">
+										Contato
+									</span>
+								</a>
+							</div>																																						                  
+						</div>  
+					</div> 
+				</div>  
+			</div>
+		</div>
+		<div class="app-aside-footer">
+			<div class="app-aside-container">
+				<div class="app-aside-title">
+					Info
+				</div>					
+				<ng-container *ngIf="settings.settings$ | async as set">
+					<div class="fs-6 mb-3">{{set.company_phonenumber}}</div>
+					<div class="app-aside-menu-mail">
+						<a [href]="set.company_email" class="fs-6">{{set.company_email}}</a>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="app-aside-backdrop"></div>

@@ -1,0 +1,42 @@
+<!--App-->
+<div class="app-root d-flex flex-column flex-root" data-page-scrolling>
+    <!--Page-->
+    <div class="app-page flex-column flex-column-fluid" id="app-page">        
+        <!--Header-->
+        <app-header 
+            class="app-header" id="app-header"
+            [appHeaderDefaultContainer]="appHeaderDefaultContainer" 
+            [appHeaderDefaultContainerClass]="appHeaderDefaultContainerClass">
+        </app-header>            
+        <!--aside-->
+        <app-aside class="app-aside app-aside-minimize"></app-aside>     
+        <!--Wrapper-->
+        <div class="app-wrapper flex-column flex-row-fluid"  id="app-wrapper">
+            <!--Main-->
+            <div class="app-main flex-column flex-row-fluid" id="smooth-content">
+                <!--Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
+                    <app-content 
+                        class="app-content"
+                        [appContentContainer]="appContentContainer" 
+                        [appContentContainerClass]="appContentContainerClass">
+                    </app-content>                      
+                </div>   
+                <!--Contact-->
+                <app-contact 
+                    class="app-contact">
+                </app-contact>
+                <!--Footer-->
+                <app-footer 
+                    class="app-footer" id="app-footer"
+                    [appFooterContainer]="appFooterContainer" 
+                    [appFooterContainerCSSClass]="appFooterContainerCSSClass">
+                </app-footer>                            
+            </div>   
+        </div>        
+    </div>
+</div>
+<app-whatsapp class="app-whatsapp"></app-whatsapp>  
+<app-cookies class="app-cookies"></app-cookies>
+
+<app-scripts-init></app-scripts-init>

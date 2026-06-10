@@ -1,0 +1,68 @@
+<div class="card card-flush py-4">
+    <div class="card-header">
+        <!--Card title-->
+        <div class="card-title">
+            <h2 class="fw-bold mb-0">Logo</h2>
+        </div>
+    </div>            
+    <div class="card-body text-center pt-0">
+        <ng-container *ngIf="client">  
+            <!-- Alert error-->     
+            <ng-container *ngIf="hasError">
+                <div class="alert alert-dismissible bg-danger d-flex flex-column flex-sm-row p-5 mb-10">
+                    <span 
+                        [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
+                        class="svg-icon svg-icon-2hx svg-icon-light me-3">
+                    </span>
+                    <!--Wrapper-->
+                    <div class="d-flex flex-column text-light pe-0 pe-sm-10">
+                        <!--Title-->
+                        <h4 class="mb-1 text-light">Error</h4>
+                        <!--Content-->
+                        <span>{{ hasError }}</span>
+                    </div>                        
+                </div>
+            </ng-container>            
+            <div [formGroup]="formGroup">    
+                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
+                    data-kt-image-input="true" 
+                    [class.image-input-empty]="!client.logo_image"
+                    [style.backgroundImage]="'url(./assets/media/svg/blank-image.svg)'">
+                    <!--Preview -->
+                    <div 
+                        class="image-input-wrapper w-175px h-175px bgi-position-center bgi-size-contain"
+                        [style.backgroundImage]="getPicture()">
+                    </div>
+                    <!--Label-->
+                    <label 
+                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" 
+                        data-kt-image-input-action="change" 
+                        [ngbTooltip]="'btn.uploadBtn' | translate">
+                        <i class="fa fa-upload fs-7"></i>
+                        <!--Inputs-->
+                        <input type="file" id="file" name="file" (change)="onSelectedFile($event)" accept=".png, .jpg, .jpeg">
+                        <input type="hidden" name="file" formControlName="file" />
+                    </label>
+                    <!--Cancel-->
+                    <span 
+                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+                        data-kt-image-input-action="cancel" 
+                        [ngbTooltip]="'btn.cancelBtn' | translate">
+                        <i class="fa fa-close fs-6"></i>
+                    </span>
+                    <!--Remove-->
+                    <span 
+                        class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" 
+                        data-kt-image-input-action="remove" 
+                        [ngbTooltip]="'btn.deleteBtn' | translate"
+                        (click)="delete()">
+                        <i class="fa fa-close fs-6"></i>
+                    </span>                                          
+                </div>   
+                <ng-container *ngIf="settings$ | async as set">
+                    <div class="text-muted fs-7" >{{ 'form.allowedImagesTypesQuip' | translate }} .png, .jpg, .jpeg</div>   
+                </ng-container>
+            </div>        
+        </ng-container>
+    </div>
+</div>        

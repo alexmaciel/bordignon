@@ -1,0 +1,46 @@
+<div class="flex-lg-row-fluid ms-lg-1">
+    <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-bolder mb-8">
+        <li class="nav-item">
+            <a
+                class="nav-link text-active-primary me-6"
+                routerLink="overview"
+                routerLinkActive="active">
+                {{'nav.overviewNav' | translate }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link text-active-primary me-6"
+                routerLink="clients"
+                routerLinkActive="active">
+                {{'nav.clientsNav' | translate }}
+            </a>
+        </li>          
+        <li class="nav-item">
+            <a
+                class="nav-link text-active-primary me-6"
+                routerLink="contacts"
+                routerLinkActive="active">
+                {{'nav.allContactsNav' | translate }}
+            </a>
+        </li>  
+        <li class="nav-item">
+            <a
+                class="nav-link text-active-primary me-6"
+                routerLink="leads"
+                routerLinkActive="active">
+                {{'nav.leadsNav' | translate }}
+            </a>
+        </li>                 
+        <li class="nav-item ms-auto">
+            <button type="button" class="btn btn-primary btn-elevate fw-bolder me-2" (click)="composer()">
+                <span
+                    [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'"
+                    class="svg-icon svg-icon-3">
+                </span>                            
+                {{ 'btn.sendEmailBtn' | translate }}
+            </button> 
+        </li>                 
+    </ul>   
+</div>  
+<router-outlet></router-outlet>

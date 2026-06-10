@@ -1,0 +1,134 @@
+<div class="card pt-4 mb-6 mb-xl-9">
+    <div class="card-header border-0">
+        <!--Card title-->
+        <div class="card-title">
+            <h2 class="fw-bold mb-0">{{'nav.contactNav' | translate }}</h2>
+        </div>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-light-primary fw-bolder" (click)="create()">
+                {{ 'btn.addContactBtn' | translate }}
+            </button>                              
+        </div>
+    </div>     
+    <div class="card-body pt-0 pb-5">
+        <div class="fw-bold fs-2">
+            Gerencie seus contatos
+            <div class="fs-7 fw-normal text-muted">
+                Cada registro de contato pode ser acessado de dentro da caixa de entrada, dando à sua equipe de suporte o contexto para criar uma resposta útil sempre.
+            </div>
+        </div>        
+        <div ngbAccordion #acc="ngbAccordion" class="accordion accordion-borderless" activeIds="contacts" [closeOthers]="true">
+            <div ngbAccordionItem [id]="contact.id" class="py-0" *ngFor="let contact of contacts; index as i">
+                <ng-template ngbPanelHeader let-opened="opened">
+                    <div class="py-3 d-flex flex-stack flex-wrap">
+                        <div class="d-flex align-items-center rotate" [class.collapsible]="!opened" (click)="acc.toggle(contact.id)">
+                            <div class="m-3 rotate-270">
+                                <span class="svg-icon svg-icon-2 svg-icon-muted m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black"></path>
+                                    </svg>
+                                </span>                                                        
+                            </div>
+                            <div class="me-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="text-gray-800 fw-bold">
+                                        {{ contact.fullname }}
+                                    </div>
+                                    <ng-container *ngIf="contact.is_primary == 1">
+                                        <div class="badge badge-light-primary ms-5">Primary</div>
+                                    </ng-container>
+                                </div>
+                                <div class="text-muted">{{ contact.email }}</div>
+                            </div>                                                
+                        </div>
+                        <div class="d-flex my-3 ms-9">
+                            <button 
+                                class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                (click)="edit(contact.id)">
+                                <span
+                                    [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                                    class="svg-icon svg-icon-3">
+                                </span>                                                    
+                            </button>
+                            <button 
+                                class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                (click)="delete(contact.id)">
+                                <span
+                                    [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+                                    class="svg-icon svg-icon-3">
+                                </span>                                                    
+                            </button>  
+                            <div ngbDropdown container="body" role="group" aria-label="Button group with nested dropdown">  
+                                <button 
+                                    class="btn btn-icon btn-active-light-primary w-30px h-30px" ngbDropdownToggle>
+                                    <span
+                                        [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"
+                                        class="svg-icon svg-icon-3">
+                                    </span>                                                    
+                                </button>  
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-150px py-3" ngbDropdownMenu>
+                                    <div class="menu-item px-3">
+                                        <div class="form-check form-switch form-check-custom form-check-light form-check-solid">
+                                            <label class="form-check-label text-muted me-4" for="primary-{{contact.id}}">
+                                                Set Primary
+                                            </label>                                            
+                                            <input
+                                                id="primary-{{contact.id}}"
+                                                type="checkbox"
+                                                class="form-check-input h-20px w-30px"
+                                                [value]="contact.id"
+                                                (change)="changeStatus($event)"
+                                                [checked]="contact.is_primary == 1 ? true : false"
+                                            />
+                                        </div>	
+                                    </div>
+                                </div>
+                            </div>                                             
+                        </div>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="d-flex flex-wrap py-5">
+                        <div class="flex-equal me-5">
+                            <table class="table table-flush fw-semibold gy-1">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">{{ 'table.tab_name' | translate }}</td>
+                                        <td class="text-gray-800">{{ contact.fullname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">{{ 'table.tab_phone' | translate }}</td>
+                                        <td class="text-gray-800">{{ contact.phonenumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">{{ 'table.tab_email' | translate }}</td>
+                                        <td class="text-gray-800">{{ contact.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">ID</td>
+                                        <td class="text-gray-800">{{ contact.id }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                                                
+                        </div>
+                        <div class="flex-equal">
+                            <table class="table table-flush fw-semibold gy-1">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">{{ 'table.tab_dateCreated' | translate }}</td>
+                                        <td class="text-gray-800">{{ contact.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted min-w-125px w-125px">Last Login</td>
+                                        <td class="text-gray-800">{{ contact.last_login }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                                                
+                        </div>                                            
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>               
+</div>        

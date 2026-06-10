@@ -1,0 +1,43 @@
+<!-- Paginator 
+  <ng-pagination
+  [collectionSize]="paginator.total"
+  [(page)]="paginator.page"
+  [maxSize]="2"
+  [rotate]="true"
+  [boundaryLinks]="true"
+  [pageSize]="paginator.pageSize"
+  (pageChange)="pageChange($event)"
+  class="pagination">
+</ng-pagination>
+-->
+
+<button 
+  type="button" 
+  aria-label="Next"
+  i18n-aria-label="@@ng.pagination.next-aria"    
+  class="btn btn-lg btn-outline btn-active-outline-secondary btn-active-secondary btn-icon-secondary btn-active-icon-white btn-motion btn-active-motion-secondary next"
+  (click)="selectPage(pageSizes[0])"
+  [attr.tabindex]="nextDisabled() ? '-1' : null"
+  [attr.aria-disabled]="nextDisabled() ? 'true' : null"  
+  [class.disabled]="nextDisabled()">
+  <span class="btn-title">
+    <span title="Ver mais">Ver Mais</span>
+  </span>   
+  <span class="btn-motion-ripple"><span></span></span>
+</button>
+<div class="d-flex align-items-center justify-content-center">
+  <!-- loading -->
+  <div class="d-flex align-items-center" *ngIf="isLoading">
+      <div class="spinner-border spinner-sm text-dark" role="status"></div>    
+    <div class="mx-2 text-muted">Loading...</div>
+  </div>
+  <!-- pageSize -->
+  <select
+    class="form-select btn btn-lg btn-outline fs-8"
+    [(ngModel)]="paginator.pageSize"
+    (change)="sizeChange()">
+    <option class="btn" *ngFor="let ps of pageSizes">
+      {{ ps }}
+    </option>
+  </select>
+</div>

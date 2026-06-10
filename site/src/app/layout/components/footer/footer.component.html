@@ -1,0 +1,148 @@
+<footer class="app-footer-content">
+    <div 
+        class="app-container py-0" 
+        [ngClass]="appFooterContainerCSSClass"
+        [ngClass]="{'container-xxl': appFooterContainer === 'fixed', 'container-fluid': appFooterContainer === 'fluid'}">
+        <div class="row">
+            <div class="d-flex flex-row align-items-start">
+                <a [routerLink]="['/']" data-cursor="show exclusion">
+                    <svg-icon [src]="'./assets/logos/logo-footer.svg'" class="svg-icon svg-logo"></svg-icon>                           
+                </a>    
+            </div>
+        </div>
+        <div class="row g-4 g-lg-8">
+            <div class="col-sm-6 col-lg-6">
+                <div class="flex-column flex-lg-row-auto w-100">
+                    @if(settings.settings$ | async; as set) {
+                        <div class="d-flex flex-column flex-wrap align-items-start">
+                            <p class="fs-7 text-white mb-0" [innerHTML]="set.company_address"></p>
+                            <p class="fs-7 text-white mb-0" [innerHTML]="set.company_city"></p>
+                            <p class="fs-7 text-white mb-0" [innerHTML]="set.company_postal_code"></p>
+                            <p class="mb-1">&nbsp;</p>
+                            <a href="mailto:{{ set.company_email }}" class="text-white" aria-label="email">
+                                <span class="btn-title">
+                                    <span [title]="set.company_email">{{ set.company_email }}</span>
+                                </span>                              
+                            </a>                                         
+                            <div class="d-flex flex-column align-items-start my-4">
+                                <a href="tel:{{ set.company_phonenumber }}" class="fs-4 btn btn-link text-white p-1" target="_blank" aria-label="telefone">
+                                    <span class="btn-title">
+                                        <span [title]="set.company_phonenumber">{{ set.company_phonenumber }}</span>
+                                    </span>                                                                                            
+                                </a>  
+                                @if(set.company_alt_phonenumber){
+                                    <a href="tel:{{ set.company_alt_phonenumber }}" target="_blank" class="fs-4 btn btn-link text-white p-1" aria-label="telefone">
+                                        <span class="btn-title">
+                                            <span [title]="set.company_alt_phonenumber">{{ set.company_alt_phonenumber }}</span>
+                                        </span>                          
+                                    </a>   
+                                }
+                            </div>   
+                        </div>  
+                    }                                                                                        
+                </div>                                     
+            </div>   
+            <div class="col-sm-6 col-lg-2">
+                <div class="d-flex align-items-stretch justify-content-between">
+                    <div class="d-flex flex-column">
+                        <h4 class="fs-7 fw-nomal text-uppercase text-muted ls-1 mb-4">Menu</h4>
+                        <div class="d-flex align-items-stretch">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <ul class="menu menu-column menu-white fs-7 fw-nomal align-items-stretch">
+                                    <li class="menu-item mb-2">
+                                        <a
+                                            class="menu-link text-white me-6 p-0"
+                                            [routerLink]="['/home']"
+                                            routerLinkActive="active">
+                                            Home
+                                        </a>
+                                    </li>  
+                                    <li class="menu-item mb-2">
+                                        <a
+                                            class="menu-link text-white me-6 p-0"
+                                            [routerLink]="['/escritorio']"
+                                            routerLinkActive="active">
+                                            Escritório
+                                        </a>
+                                    </li> 
+                                    <li class="menu-item mb-2">
+                                        <a
+                                            class="menu-link text-white me-6 p-0"
+                                            [routerLink]="['/servicos']"
+                                            routerLinkActive="active">
+                                            Serviços
+                                        </a>
+                                    </li>    
+                                    <li class="menu-item mb-2">
+                                        <a
+                                            class="menu-link text-white me-6 p-0"
+                                            [routerLink]="['/contato']"
+                                            routerLinkActive="active">
+                                            Contato
+                                        </a>
+                                    </li>                                                                                                                     
+                                </ul>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-sm-6 col-lg-auto ms-lg-auto">
+                <div class="d-flex align-items-stretch">
+                    <div class="d-flex flex-column">
+                        <h4 class="fs-7 fw-nomal text-uppercase text-muted ls-1 mb-4">Siga-nos</h4>
+                        <div class="d-flex align-items-stretch">
+                            <div class="d-flex align-items-center">
+                                @for (social of socials.items$ | async; track social.id) {
+                                    <a 
+                                        [href]="social.link" [title]="social.name"
+                                        class="btn btn-icon btn-lg btn-transparent btn-icon-white btn-active-icon-secondary me-1"
+                                        data-cursor="border">
+                                        <svg-icon [src]="'./assets/images/social/logo-'+social.name+'.svg'" class="svg-icon svg-icon-white svg-icon-1"></svg-icon>                                                      
+                                    </a>   
+                                }                    
+                            </div>                         
+                        </div>                        
+                    </div>
+                </div>
+            </div>                                                         
+        </div>
+        <div class="separator border-light opacity-25 py-4 py-lg-8"></div>
+        <div class="footer-bottom">
+            @if(settings.settings$ | async; as set) {
+                <div class="">
+                    <span class="sub text-muted">&copy; 2026 - {{set.business_name}}</span>
+                </div>
+            }
+            <div class="d-flex align-items-stretch py-1 py-lg-0">
+                <ul class="menu menu-row menu-dark fs-normal fw-nomal align-items-stretch">
+                    <li class="menu-item">
+                        <a
+                            class="menu-link text-muted text-active-primary me-6 p-0"
+                            [routerLink]="['tdu/privacidade']"
+                            routerLinkActive="active">
+                            Política de Privacidade
+                        </a>
+                    </li>  
+                    <li class="menu-item">
+                        <a
+                            class="menu-link text-muted text-active-primary me-6 p-0"
+                            [routerLink]="['tdu/uso']"
+                            routerLinkActive="active">
+                            Termos de Uso
+                        </a>
+                    </li>                       
+                </ul>     
+            </div>     
+            <!--
+                <div class="">
+                    <span class="sub">
+                        <a href="https://mova.ppg.br/" title="Mova Comunicação e Marketing">
+                            <svg-icon [src]="'./assets/images/mova.svg'" class="svg-icon svg-icon-4x svg-icon-dark img_mova"></svg-icon>                                
+                        </a>
+                    </span>
+                </div>                
+            -->           
+        </div>                                 
+    </div>
+</footer>   

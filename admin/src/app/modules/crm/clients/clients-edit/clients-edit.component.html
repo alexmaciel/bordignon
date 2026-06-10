@@ -1,0 +1,282 @@
+<div class="d-flex flex-column flex-lg-row">
+    <ng-container *ngIf="client && client.userid">
+        <div class="d-flex flex-column flex-lg-row-auto gap-4 gap-lg-8 w-100 w-lg-350px mb-7 me-lg-10">
+            <!--Image-->
+            <ng-container *ngIf="client && client.userid">
+                <div class="d-flex flex-column">
+                    <app-upload-image [client]="client"></app-upload-image>
+                </div>
+            </ng-container>                
+
+            <!--Contacts-->
+            <ng-container *ngIf="client && client.userid">
+                <app-social [client]="client"></app-social>
+            </ng-container>     
+        </div>
+    </ng-container>
+    <div class="d-flex flex-column flex-row-fluid gap-4 gap-lg-8">
+        <!--Card-->
+        <div class="card pt-4 mb-6 mb-xl-9">
+            <div class="card-header border-0">
+                <div class="card-title">
+                    <h2 class="fw-bold mb-0">
+                        <ng-container *ngIf="client">
+                            <ng-container *ngIf="client.userid">{{ 'title.editTitle' | translate }} </ng-container>
+                            <ng-container *ngIf="!client.userid">{{ 'title.createTitle' | translate }} </ng-container>
+                            <ng-container *ngIf="client.userid">{{'nav.clientsNav' | translate }} '{{client.company}}'</ng-container>
+                        </ng-container>                
+                    </h2>
+                </div>  
+                <div class="card-toolbar">
+                    <!--
+                    <button type="button" class="btn btn-light-primary fw-bolder me-2" 
+                        [routerLink]="['/clients']">
+                        <i class="fa fa-arrow-left icon-sm"></i>{{ 'btn.backBtn' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-light" (click)="reset()">
+                        <i class="fa fa-redo icon-sm"></i>{{ 'btn.resetBtn' | translate }}
+                    </button> 
+                -->                                                     
+                </div>
+            </div>
+            <div 
+                class="card-body pt-0 pb-5"
+                [ngClass]="{'overlay overlay-block': isLoading$ | async}">
+                <ng-container *ngIf="isLoading$ | async">
+                    <div class="overlay-layer bg-dark bg-opacity-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>            
+                </ng-container>   
+                <!--Tabs-->
+                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x fs-6 fw-semibold mt-6 mb-8 gap-2">
+                    <li class="nav-item" role="presentation">
+                        <a 
+                            class="nav-link text-active-primary d-flex align-items-center pb-4 cursor-pointer" data-bs-toggle="tab" aria-selected="true" role="tab"
+                            [ngClass]="getActiveTabCSSClass(1)"
+                            (click)="setActiveTab(1)">
+                            Geral
+                        </a>
+                    </li>            
+                </ul>
+                <div class="tab-content" id="clients_tab">
+                    <div class="tab-pane" [ngClass]="getActiveTabCSSClass(1)">                        
+                        <div class="pt-9" *ngIf="client">  
+                            <form
+                                class="form form-label-right"
+                                [formGroup]="formGroup"
+                                (ngSubmit)="save()">
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label required">{{ 'form.propertyCompany' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [placeholder]="'form.propertyCompany' | translate"
+                                                [class.is-invalid]="isControlInvalid('company')"
+                                                [class.is-valid]="isControlValid('company')"
+                                                name="company"
+                                                formControlName="company"
+                                            /> 
+                                            <span class="form-text text-muted"></span>
+                                            <div class="valid-feedback" *ngIf="isControlValid('company')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>  
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label required">{{ 'form.phoneField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('phonenumber')"
+                                                [class.is-valid]="isControlValid('phonenumber')"
+                                                name="phonenumber"
+                                                formControlName="phonenumber"
+                                            /> 
+                                            <div class="valid-feedback" *ngIf="isControlValid('phonenumber')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'phonenumber')">{{ 'form.propertyNameHelper' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>  
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.propertyWebsite' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('website')"
+                                                [class.is-valid]="isControlValid('website')"
+                                                name="website"
+                                                formControlName="website"
+                                            /> 
+                                            <div class="valid-feedback" *ngIf="isControlValid('website')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>   
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.propertyNotesField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <textarea 
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('description')"
+                                                [class.is-valid]="isControlValid('description')"
+                                                name="description"
+                                                formControlName="description">
+                                            </textarea>                                                
+                                            <div class="valid-feedback" *ngIf="isControlValid('description')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                            <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'description')">{{ 'form.propertyMinimumReq' | translate:{min: '3'} }}</div>                       
+                                            <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'description')">{{ 'form.propertyMaximumReq' | translate:{max: '250'} }}</div>                                              
+                                        </div>
+                                    </div>                    
+                                </div>                                     
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.cityField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('city')"
+                                                [class.is-valid]="isControlValid('city')"
+                                                name="city"
+                                                formControlName="city"
+                                            /> 
+                                            <div class="valid-feedback" *ngIf="isControlValid('city')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>  
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.stateField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('state')"
+                                                [class.is-valid]="isControlValid('state')"
+                                                name="state"
+                                                formControlName="state"
+                                            /> 
+                                            <div class="valid-feedback" *ngIf="isControlValid('state')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>                                  
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.zipField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('zip')"
+                                                [class.is-valid]="isControlValid('zip')"
+                                                name="zip"
+                                                formControlName="zip"
+                                            /> 
+                                            <div class="valid-feedback" *ngIf="isControlValid('zip')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>  
+                                <div class="form-group row mb-7">
+                                    <label class="col-lg-3 col-form-label">{{ 'form.addressField' | translate }}</label>
+                                    <div class="col-lg-9">
+                                        <div>
+                                            <textarea 
+                                                type="text"
+                                                class="form-control form-control-lg form-control-solid"
+                                                [class.is-invalid]="isControlInvalid('address')"
+                                                [class.is-valid]="isControlValid('address')"
+                                                name="address"
+                                                formControlName="address">
+                                            </textarea>                                                
+                                            <div class="valid-feedback" *ngIf="isControlValid('address')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                                        </div>
+                                    </div>                    
+                                </div>    
+                                <ng-container *ngIf="!client.userid">
+                                    <div class="form-group row mb-7">
+                                        <div class="col-lg-9 ms-auto">
+                                            <div class="d-flex flex-stack">
+                                                <!--Label-->
+                                                <div class="fw-bold me-5">
+                                                    <label class="fs-6">Contato</label>
+                                                    <div class="fs-7 text-muted">Salvar e criar como contato</div>
+                                                </div>
+                                                <!--Checkboxes-->
+                                                <div class="d-flex align-items-center">
+                                                    <!--Checkbox-->
+                                                    <label class="form-check form-check-custom form-check-solid">
+                                                        <input 
+                                                            class="form-check-input h-20px w-20px" 
+                                                            type="checkbox" 
+                                                            name="save_and_add_contact" 
+                                                            formControlName="save_and_add_contact"
+                                                            (change)="createContact($event)">
+                                                        <span class="form-check-label fw-bold">Criar Contato</span>
+                                                    </label>
+                                                </div>
+                                            </div> 
+                                        </div>                  
+                                    </div>       
+                                </ng-container>                                                       
+                                <div class="d-flex justify-content-end">
+                                    <div class="form-group row mt-0"> 
+                                        <div class="col-lg-12 col-xl-12">
+                                            <button class="btn btn-light btn-active-light-primary fs-bold fw-bolder me-2"
+                                                routerLink="/clients">
+                                                {{ 'btn.cancelBtn' | translate }}
+                                            </button>
+                                            <div class="btn-group">
+                                                <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary fs-bold fw-bolder px-6">
+                                                    {{ 'btn.saveChangesBtn' | translate }}
+                                                </button>
+                                                <div class="btn btn-primary btn-icon fs-bold" ngbDropdown container="body" role="group" aria-label="Button group with nested dropdown">
+                                                    <button type="button" [disabled]="formGroup.invalid" class="btn btn-icon rounded-start-0" ngbDropdownToggle>
+                                                        <span class="svg-icon svg-icon-2 m-0">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black"></path>
+                                                            </svg>
+                                                        </span>                                        
+                                                    </button>
+                                                    <div class="menu menu-sub menu-sub-dropdown w-150px py-4" ngbDropdownMenu>
+                                                        <div class="menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7">
+                                                            <ng-container *ngIf="client.userid">
+                                                                <div class="menu-item px-3">
+                                                                    <a (click)="save()" class="menu-link px-3 cursor-pointer">
+                                                                        <span class="menu-title">{{ 'btn.saveContinueBtn' | translate }}</span>
+                                                                    </a>
+                                                                </div>
+                                                            </ng-container>
+                                                            <!--
+                                                                <li class="menu-item px-3">
+                                                                    <a (click)="editExit()" class="menu-link px-3 cursor-pointer">
+                                                                        <span class="menu-title">{{ 'btn.saveOutBtn' | translate }}</span>
+                                                                    </a>
+                                                                </li>
+                                                            -->
+                                                        </div>
+                                                    </div>
+                                                </div>                         
+                                            </div>   
+                                        </div>               
+                                    </div>  
+                                </div>                                                                                                                                                                                                                    
+                            </form>   
+                        </div>                                              
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Contacts-->
+        <ng-container *ngIf="client && client.userid">
+            <app-contacts [userid]="client.userid"></app-contacts>
+        </ng-container>
+    </div>
+</div>

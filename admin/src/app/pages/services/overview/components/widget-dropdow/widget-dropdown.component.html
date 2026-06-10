@@ -1,0 +1,32 @@
+<div class="menu-item px-3">
+    <div class="menu-content fs-6 text-dark fw-bolder px-3 py-4">
+        {{ 'dashboard.othersAnalyzesTitle' | translate }}
+    </div>
+</div>
+<div class="separator mb-3 opacity-75"></div>
+<div class="menu-item px-3">
+    <a 
+        class="menu-link without-sub px-3 py-3"
+        (click)="onLastDaysDateChange(1)"
+        [ngClass]="{'active': active == 1}">
+        <span class="menu-title">
+            {{ 'dashboard.today' | translate }}
+        </span>
+    </a>
+    <a 
+        class="menu-link without-sub px-3 py-3"
+        (click)="onLastDaysDateChange(7)"
+        [ngClass]="{'active': active == 7}">
+        <span class="menu-title">
+            {{ 'dashboard.last' | translate }} 7 {{ 'dashboard.days' | translate }}
+        </span>
+    </a> 
+    <a 
+        class="menu-link without-sub px-3 py-3"
+        (click)="onLastDaysDateChange(30)"
+        [ngClass]="{'active': active == 30}">
+        <span class="menu-title">
+            {{ 'dashboard.last' | translate }} 30 {{ 'dashboard.days' | translate }}
+        </span>
+    </a>        
+</div>

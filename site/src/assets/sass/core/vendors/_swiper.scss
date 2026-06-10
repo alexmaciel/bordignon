@@ -1,0 +1,238 @@
+//
+// Swiper
+//
+
+.swiper-pagination {
+	z-index: 91;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets, 
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+	bottom: 14px;
+}
+
+.swiper-pagination-bullet {
+	position: relative;
+	background: var(--#{$prefix}gray-200);
+	opacity: 1;
+	width: 4px;
+	height: 4px;
+    border-radius: 2px;
+    -webkit-transition: width 0.3s;
+	-moz-transition: width 0.3s;
+    transition: width 0.3s
+}
+
+.swiper-pagination .swiper-pagination-bullet-active.swiper-pagination-bullet {
+    width: 14px!important;
+}
+
+.swiper-container-vertical > .swiper-pagination-bullets {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;	
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-moz-box-orient: vertical;
+	-moz-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;	
+}
+
+.swiper-pagination-bullet-active {
+	background: var(--#{$prefix}text-secondary);
+}
+
+.swiper-navigation {
+	position: absolute; 	
+	bottom: 24px;
+	z-index: 91;
+	right: 12.33333333333337vw;
+
+	// Desktop mode
+	@include media-breakpoint-up(lg) {
+		right: 6.66666666666667vw;
+	} 	
+}
+
+@include media-breakpoint-down(sm) {
+	.swiper-navigation {
+		display: none;
+	}
+}
+
+.swiper-button-prev:after, 
+.swiper-rtl .swiper-button-next:after,
+.swiper-button-next:after, 
+.swiper-rtl .swiper-button-prev:after {
+	display: none;
+}
+
+.swiper-pagination.swiper-pagination-custom {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;	
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-moz-box-orient: vertical;
+	-moz-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;	
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;	
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	pointer-events: none;
+
+	// Desktop mode
+	@include media-breakpoint-up(lg) {
+		top: -50px;
+		height: 84vh;
+	}
+
+	// Mobile mode
+	@include media-breakpoint-down(lg) {
+		top: 0px;
+		height: 56vh;
+	}	
+
+	&.swiper-pagination-fraction {
+		position: absolute;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: flex-end;
+		-ms-flex-align: flex-end;
+		align-items: flex-end; 
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		-moz-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;			
+		text-align: center;	
+		z-index: 971;
+		color: var(--#{$prefix}text-white);
+
+		.numbers {		
+			//counter-increment: steps;
+			position: relative;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center; 
+			text-align: center;	
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -moz-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;	
+			font-family: $font-family-sans-serif; 
+			font-weight: $font-weight-light;
+			padding: 0;
+			margin: 0; 
+			letter-spacing: 0rem;		
+			height: $input-height;
+			width: $input-height;	
+
+
+			&::before {
+				content: counter(decimal-leading-zero);
+				position: relative;
+				display: block;
+				color: currentColor;
+				top: 0;
+				left: 0;
+			}			
+		}
+
+		.line {
+			position: relative;
+			width: $input-height;
+			height: 400px;	
+			opacity: 0.6;
+			
+			&::after {
+				content: "";
+				position: absolute;
+				background-color: var(--#{$prefix}text-white);
+				width: 1px;
+				height: 100%;
+				margin: 0 auto;
+			}
+		}
+
+		// Mobile mode
+		@include media-breakpoint-down(lg) {
+			.line {
+				height: 250px;
+			}
+		}
+	}	
+
+}
+	
+.swiper-scrollbar.swiper-scrollbar-custom {
+	position: relative;
+	left: 0;
+	right: 0;
+	bottom: -50px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex; 
+	align-items: center;  
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center; 
+
+	pointer-events: auto;
+	z-index: 91;
+	
+	&.swiper-scrollbar-horizontal {
+		height: 1px;
+		background: var(--#{$prefix}black);	
+		
+		.swiper-scrollbar-drag {
+			top: 0;
+			height: 3px;
+			background: var(--#{$prefix}black);		
+			-webkit-transition: height 0.3s ease;
+			-moz-transition: height 0.3s ease;
+			transition: height 0.3s ease;			
+		}
+
+		&:focus,
+		&:hover {
+			.swiper-scrollbar-drag {
+				height: 6px;
+			}
+		}
+	}
+}
+
+.bg-image {
+	.swiper-pagination-bullet-active {
+		background: var(--#{$prefix}text-secondary);
+	}	
+}

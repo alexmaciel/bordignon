@@ -1,0 +1,21 @@
+
+  <ng-container *ngIf="isActive">
+    <ng-container *ngIf="activeDirection === 'asc'">
+      <span [inlineSVG]="'./assets/images/arrow-left-doble.svg'"
+        class="svg-icon svg-icon-2 svg-icon-white transform-90">
+      </span>
+    </ng-container>
+    <ng-container *ngIf="activeDirection === 'desc'">
+      <span [inlineSVG]="'./assets/images/arrow-right-doble.svg'"
+        class="svg-icon svg-icon-2 svg-icon-white transform-90">
+    </span>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="!isActive">
+    <span [inlineSVG]="'./assets/images/sort.svg'"
+      class="svg-icon svg-icon-2 svg-icon-white svg-icon-sort">
+    </span>
+  </ng-container>
+
+

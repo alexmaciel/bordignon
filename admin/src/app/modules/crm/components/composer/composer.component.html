@@ -1,0 +1,179 @@
+<div class="modal-drag">
+    <div class="modal-header">
+        <div class="modal-title h4">
+            {{'title.emailAddresssTitle' | translate }}             
+        </div>
+        <button 
+            type="button"
+            class="btn btn-icon btn-sm btn-close btn-active-light-primary" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close"  
+            (click)="modal.close()">
+            <app-keenicon name="cross" class="fs-1"></app-keenicon>
+      </button>       
+    </div>
+    <form action="#" class="form form-label-right" [formGroup]="formGroup" id="kt_inbox_compose_form">
+        <div class="px-0" style="min-height: 325px;">
+            <!--Body-->
+            <div class="d-block">
+                <!--To-->
+                <div class="d-flex align-items-center border-bottom inbox-to px-6 min-h-45px">
+                    <div class="text-dark-50 w-75px">Para:</div>
+                    <div class="flex-grow-1">     
+                        <ng-select
+                            [items]="contacts.items$ | async"
+                            [multiple]="true"
+                            [virtualScroll]="false"
+                            [closeOnSelect]="false"
+                            [loading]="isLoading"
+                            dropdownPosition="auto"
+                            bindLabel="fullname"
+                            bindValue="email"                            
+                            labelForId="contact_emails"
+                            formControlName="contact_emails"
+                            [class.is-invalid]="isControlInvalid('contact_emails')"
+                            [class.is-valid]="isControlValid('contact_emails')"                            
+                            class="form-select-transparent border-0">
+                            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                                <div class="d-flex align-items-center">								
+                                    <div class="symbol symbol-circle symbol-35px me-5">
+                                        <span class="symbol-label" *ngIf="item.profile_image" 
+                                            [style.backgroundImage]="'url('+ item.profile_image +')'">
+                                        </span>
+                                        <span 
+                                            class="symbol-label text-primary fw-bold fs-h4" *ngIf="item.profile_image == ''">
+                                            {{ item.firstname[0] }}
+                                        </span>	                                        
+                                    </div>								
+                                    <div class="d-flex justify-content-start flex-column">									
+                                        <div class="text-dark fw-bold text-hover-primary fs-6">
+                                            <ng-container *ngIf="item.firstname === null">
+                                                {{ item.email }}
+                                            </ng-container> 
+                                            <ng-container *ngIf="item.firstname">
+                                                {{ item.firstname }} {{ item.lastname }}
+                                            </ng-container> 
+                                        </div>									
+                                        <span class="text-muted fs-7 fw-bold" [innerHtml]="item.email"></span>								
+                                    </div>
+                                </div>                                   
+                            </ng-template>                        
+                        </ng-select>                                                  
+                    </div>
+                </div>
+                <!--From-->
+                <div class="d-flex align-items-center border-bottom inbox-to px-6 min-h-45px">
+                    <div class="text-dark-50 w-75px">De:</div>
+                    <div class="flex-grow-1">
+                        <input 
+                            readonly
+                            class="form-control form-control-transparent border-0 text-muted px-6 min-h-45px" 
+                            name="from_email" 
+                            formControlName="from_email"
+                            placeholder="E-mail"                               
+                        /> 
+                    </div>
+                </div>            
+                <!--Subject-->
+                <div class="border-bottom">
+                    <input 
+                        class="form-control form-control-transparent border-0 px-6 min-h-45px" 
+                        name="subject" 
+                        formControlName="subject"
+                        placeholder="Assunto"
+                        [class.is-invalid]="isControlInvalid('subject')"
+                        [class.is-valid]="isControlValid('subject')"                                
+                    />     
+                </div>
+                <!--Text-->
+                <div class="border-bottom">
+                    <quill-editor
+                        name="message"
+                        formControlName="message"
+                        placeholder="Mensagem"
+                        [class.is-invalid]="isControlInvalid('message')"
+                        [class.is-valid]="isControlValid('message')"                        
+                        class="form-control form-control-transparent border-0 px-0 pb-2 w-100"               
+                        [styles]="{height: '165px'}">
+                        <div quill-editor-toolbar class="px-5 border-top-0 border-left-0 border-right-0">
+                            <span class="ql-formats">
+                                <select class="ql-size">
+                                    <option value="small"></option>
+                                    <!-- Note a missing, thus falsy value, is used to reset to default -->
+                                    <option selected></option>
+                                    <option value="large"></option>
+                                    <option value="huge"></option>
+                                </select>    
+                            </span>                           
+                            <span class="ql-formats">
+                                <button class="ql-bold" [title]="'Bold'"></button>
+                                <button class="ql-italic" [title]="'Italic'"></button>
+                                <button class="ql-underline" [title]="'Undeline'"></button>
+                            </span>                          
+                            <span class="ql-formats">
+                                <button class="ql-list" value="ordered" [title]="'List'"></button>
+                                <button class="ql-list" value="bullet" [title]="'List'"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-link" [title]="'Link'"></button>
+                                <button class="ql-image" [title]="'Image'"></button>
+                            </span>    
+                            <span class="ql-formats">
+                                <button class="ql-code" [title]="'Code'"></button>
+                            </span>                                                                                         
+                            <span class="ql-formats">
+                                <button class="ql-clean" [title]="'Clean'"></button>
+                            </span>                              
+                        </div>                            
+                    </quill-editor>                  
+                    <!--
+                    <div ngx-dropzone class="dropzone dropzone-queue px-8 py-4" 
+                        [multiple]="false"
+                        [expandable]="true"
+                        (change)="onFilesAdded($event)" 
+                        #drop>
+                        <ngx-dropzone-preview class="ngx-dropzone-item" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label class="ngx-dropzone-file">
+                                <div class="ngx-dropzone-filename">
+                                    <span>{{ f.name }} </span>
+                                    <span><strong>({{ f.type }})</strong></span>
+                                </div> 
+                            </ngx-dropzone-label>
+                        </ngx-dropzone-preview>                  
+                    </div>
+                    -->                        
+                </div>            
+            </div>
+            <div class="d-flex align-items-center justify-content-between py-5 ps-6 pe-5">
+                <div class="d-flex align-items-center me-3">
+                    <button type="submit" (click)="onSubmit()" [disabled]="formGroup.invalid" class="btn btn-lg btn-primary fw-bolder me-4">
+                        <ng-container *ngIf="isLoading">
+                            <span class="indicator-progress" [style.display]="'block'">
+                            Enviando...
+                            <span
+                                class="spinner-border spinner-border-sm align-middle ms-2"
+                            ></span>
+                            </span>
+                        </ng-container>
+                        <ng-container *ngIf="!(isLoading)">
+                            <span class="indicator-label">{{'btn.sendBtn' | translate }} </span>
+                            <span 
+                                [inlineSVG]="'./assets/media/icons/duotune/general/gen016.svg'"
+                                class="svg-icon svg-icon-2 m-0">
+                            </span>
+                        </ng-container>  
+                    </button>  
+                    <!--
+                    <button 
+                        type="no_multiple"
+                        class="btn btn-icon btn-lg btn-clean btn-active-light-primary me-2"
+                        (click)="drop.showFileSelector($event)">
+                        <span 
+                            [inlineSVG]="'./assets/media/icons/duotune/communication/com008.svg'"
+                            class="svg-icon svg-icon-2 m-0">
+                        </span>                    
+                    </button>    
+                    -->
+                </div>
+            </div>        
+        </div>
+    </form>
+</div>

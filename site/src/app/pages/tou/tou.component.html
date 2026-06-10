@@ -1,0 +1,42 @@
+<div class="app-container">
+    <section class="page-title py-15 h-auto">
+        <div class="container-xxl">
+            <div class="d-flex align-items-start">
+                <h1 class="fs-2qx fw-bolder mb-4">
+                    Termos e condições de uso do site
+                </h1>
+            </div>            
+        </div>
+    </section>
+    <section class="pt-0">
+        <div class="d-flex overflow-hidden h-55px border-bottom align-items-center">
+            <div class="container-xxl">
+                <div class="d-flex align-items-stretch">
+                    <ul class="menu menu-row fs-5 fw-bolder align-items-stretch">
+                        <li class="menu-item me-6 me-lg-12">
+                            <a
+                                class="menu-link link text-muted text-active-primary"
+                                routerLink="privacidade"
+                                routerLinkActive="active">
+                                Política de Privacidade
+                            </a>
+                        </li>  
+                        <li class="menu-item me-6 me-lg-12">
+                            <a
+                                class="menu-link link text-muted text-active-primary"
+                                routerLink="uso"
+                                routerLinkActive="active">
+                                Termos de uso
+                            </a>
+                        </li>                       
+                    </ul>     
+                </div> 
+            </div>    
+        </div>
+        <div class="container-xxl">              
+            <div class="page-content py-10 py-lg-20">
+                <router-outlet></router-outlet>
+            </div>
+        </div>          
+    </section>
+</div>

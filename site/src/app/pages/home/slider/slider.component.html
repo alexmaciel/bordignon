@@ -1,0 +1,47 @@
+<ngx-swiper swiperContainerId="main-slider" [config]="config">
+    <swiper-container #swiper class="slider" init="false">
+        @for (slide of slides.items$ | async; track slide.id) {
+            <swiper-slide class="slider-slide">
+                <div class="container-fluid px-0">
+                    <div class="row flex-row flex-lg-row-reverse align-items-lg-center">
+                        <div class="col-lg-7 col-xl-6">                
+                            <div class="slider-image">
+                                <div class="container-image h-100 h-lg-600px">
+                                    <img 
+                                        [ngSrc]="slide.pictures.url" 
+                                        [alt]="slide.pictures.subject" 
+                                        ngSrcset="50w" sizes="50vw" priority fill 
+                                        class="image" 
+                                        style="position: initial;"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-xl-5 push-xl-1 px-10 ps-lg-12">
+                            <div class="slider-content">
+                                <div class="slider-title">
+                                    <h1 class="fs-3qx fw-bold slider-title mb-2">{{ slide.name }}</h1>
+                                    <p 
+                                        class="fs-6 slider-description mb-8 mb-lg-16"
+                                        [innerHTML]="slide.description | safe:'html'">
+                                    </p> 
+                                </div>
+                                @if(slide.link) {
+                                    <a [href]="slide.link" class="btn btn-lg btn-outline btn-outline-primary btn-active-outline-primary btn-active-white btn-motion btn-active-motion-primary" aria-label="Contato">
+                                        <span class="btn-title">
+                                            <span title="Saiba Mais">Saiba Mais</span>
+                                        </span>                                    
+                                        <span class="btn-motion-ripple"><span></span></span>
+                                    </a>                                
+                                }
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </swiper-slide>     
+        }      
+    </swiper-container>
+    <div class="container-fluid">
+        <div class="swiper-pagination swiper-pagination-slider"></div>
+    </div>
+</ngx-swiper>

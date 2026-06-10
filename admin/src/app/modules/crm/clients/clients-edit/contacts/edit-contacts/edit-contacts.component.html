@@ -1,0 +1,187 @@
+<div class="modal-header">
+    <div class="modal-title h4">
+        <ng-container *ngIf="contacts">
+            <ng-container *ngIf="contacts.id">{{ 'title.editTitle' | translate }} </ng-container>
+            <ng-container *ngIf="!contacts.id">{{ 'title.createTitle' | translate }}</ng-container>
+            <ng-container *ngIf="contacts.id">{{'nav.contactNav' | translate }} '{{contacts.fullname}}'</ng-container>
+        </ng-container>           
+    </div>
+    <button 
+        type="button"
+        class="btn btn-icon btn-sm btn-close btn-active-light-primary" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close"  
+        (click)="modal.close()">
+        <app-keenicon name="cross" class="fs-1"></app-keenicon>
+    </button>      
+</div>
+<div 
+    class="modal-body py-10 px-lg-10"
+    [ngClass]="{'overlay overlay-block': isLoading$ | async}">
+    <!--Overlay Layer-->
+    <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-dark bg-opacity-5 z-index-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </ng-container>    
+    <div 
+        id="kt_modal_update_client_scroll"
+        data-kt-scroll="true"
+        data-kt-scroll-activate="{default: false, lg: true}"
+        data-kt-scroll-max-height="auto"
+        data-kt-scroll-dependencies="#kt_modal_update_client_scroll"
+        data-kt-scroll-wrappers="#kt_modal_update_client_scroll"
+        data-kt-scroll-offset="300px"
+        style="max-height: 524px;"
+        class="d-flex flex-column scroll-y me-n7 pe-7">     
+        <ng-container *ngIf="contacts">
+            <form action="#" class="form form-label-right" [formGroup]="formGroup">
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.firstNameField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="firstname"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('firstname')"
+                            [class.is-valid]="isControlValid('firstname')"                        
+                            formControlName="firstname"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('firstname')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                </div>  
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.lastNameField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="lastname"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('lastname')"
+                            [class.is-valid]="isControlValid('lastname')"                        
+                            formControlName="lastname"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('lastname')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                </div>  
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.emailAddressField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="email"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('email')"
+                            [class.is-valid]="isControlValid('email')"                        
+                            formControlName="email"
+                        />
+                        <span class="form-text text-muted">{{ 'profile.accountEmailHelper' | translate }}</span>
+                        <div class="valid-feedback" *ngIf="isControlValid('email')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                </div>        
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.phoneField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="phonenumber"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('phonenumber')"
+                            [class.is-valid]="isControlValid('phonenumber')"                        
+                            formControlName="phonenumber"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('phonenumber')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'phonenumber')">{{ 'form.propertyNameHelper' | translate }}</div>
+                    </div>
+                </div>                             
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'profile.formNewPassword' | translate }}</label>
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input 
+                                [type]="showPassword ? 'text' : 'password'"
+                                [placeholder]="'profile.formNewPassword' | translate"
+                                autocomplete="off"
+                                formControlName="password"
+                                [class.is-invalid]="isControlInvalid('password')"
+                                [class.is-valid]="isControlValid('password')" 
+                                class="form-control form-control-lg form-control-solid"
+                            />
+                            <span class="input-group-text" (click)='showHidePassword()'>
+                                <i class="fa fs-3" [ngClass]="!showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                            </span>                                  
+                        </div>
+                        <span class="form-text text-muted">{{ 'profile.newPassword2Helper' | translate }}</span>
+                    </div>
+                </div>
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'profile.formNewRpassword' | translate }}</label>
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input 
+                                [type]="showPassword ? 'text' : 'password'"
+                                [placeholder]="'profile.formNewRpassword' | translate"
+                                autocomplete="off"
+                                formControlName="cPassword"
+                                [class.is-invalid]="isControlInvalid('cPassword')"
+                                [class.is-valid]="isControlValid('cPassword')" 
+                                class="form-control form-control-lg form-control-solid"
+                            />
+                            <span class="input-group-text" (click)='showHidePassword()'>
+                                <i class="fa fs-3" [ngClass]="!showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                            </span>   
+                        </div>                            
+                        <div class="valid-feedback" *ngIf="isControlValid('cPassword')">{{ 'profile.newPassMatchReqVal' | translate }}</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('ConfirmPassword', 'cPassword')">{{ 'profile.newPassNotMatchReqVal' | translate }}</div> 
+                        <span class="form-text text-muted">{{ 'profile.rnewPasswordHelper' | translate }}</span>                    
+                    </div>
+                </div>   
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--Label-->
+                    <div class="fw-bold mb-6">
+                        <label class="fs-6">Notificar Contato</label>
+                        <div class="fs-7 text-muted">Permitir notificações por e-mail</div>
+                    </div>
+                    <div class="d-flex flex-stack">
+                        <div class="d-flex align-items-start">
+                            <!--Checkbox-->
+                            <label class="form-check form-check-custom form-check-solid me-0">
+                                <input 
+                                    class="form-check-input h-20px w-20px" 
+                                    type="checkbox" 
+                                    name="send_set_password_email" 
+                                    formControlName="send_set_password_email"
+                                    value="true" 
+                                    checked="checked"
+                                    (change)="sendEmail($event)">
+                                <span class="form-check-label fw-bold">Enviar e-mail com senha SET</span>
+                            </label>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <!--Checkbox-->
+                            <label class="form-check form-check-custom form-check-solid me-0">
+                                <input 
+                                    class="form-check-input h-20px w-20px" 
+                                    type="checkbox" 
+                                    name="is_primary" 
+                                    formControlName="is_primary"
+                                    (change)="setPrimary($event)">
+                                <span class="form-check-label fw-bold">Primeiro Contato</span>
+                            </label>
+                        </div>                          
+                    </div>                   
+                </div>                                                           
+            </form>
+        </ng-container>
+    </div>     
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light fw-bolder me-2" (click)="modal.close()">
+        {{ 'btn.cancelBtn' | translate }}
+    </button>
+    <ng-container *ngIf="contacts">
+        <button type="submit" class="btn btn-primary fw-bolder" (click)="save()" [disabled]="formGroup.invalid">
+            {{ 'btn.saveBtn' | translate }}
+        </button>
+    </ng-container>
+</div>  

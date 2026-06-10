@@ -1,0 +1,29 @@
+<ng-template #next>
+  <span 
+    class="btn-title"
+    aria-hidden="true"
+    i18n="@@ng.pagination.next">
+    <span title="ver mais">ver mais</span>
+  </span> 
+  <span class="btn-motion-ripple"><span></span></span>       
+</ng-template>
+<div class="page-item">
+  <button 
+    type="button" 
+    aria-label="Next"
+    i18n-aria-label="@@ng.pagination.next-aria"    
+    class="btn btn-lg btn-outline btn-motion btn-active-transparent btn-active-motion-dark btn-active-icon-white rounded-pill next"
+    (click)="selectPage(page + 1); $event.preventDefault()"
+    [attr.tabindex]="nextDisabled() ? '-1' : null"
+    [attr.aria-disabled]="nextDisabled() ? 'true' : null"
+    *ngIf="directionLinks"
+    [class.disabled]="nextDisabled()">
+    <ng-template
+      [ngTemplateOutlet]="tplNext?.templateRef || next"
+      [ngTemplateOutletContext]="{
+        disabled: nextDisabled(),
+        currentPage: page
+      }"
+    ></ng-template>                         
+  </button>   
+</div>

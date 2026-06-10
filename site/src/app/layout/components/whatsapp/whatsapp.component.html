@@ -1,0 +1,11 @@
+<ng-container *ngIf="settings.settings$ | async as set">
+    <div 
+        *ngIf="set.whatsapp_chat !== 'disable'"
+        class="app-whatsapp-wrapper" data-cursor="show border">
+        <a 
+            [href]="set.whatsapp_chat_clients_area + set.whatsapp_chat_description" target="_blank"
+            class="btn btn-icon btn-lg btn-primary btn-icon-white rounded-circle">
+            <svg-icon [src]="'./assets/images/social/logo-whatsapp.svg'" class="svg-icon svg-icon-1 svg-icon-white"></svg-icon>      
+        </a>
+    </div>
+</ng-container>

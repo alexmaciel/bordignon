@@ -1,0 +1,73 @@
+//
+// Demo
+//
+
+
+.overlay  {
+    position: relative;
+
+    .overlay-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        -webkit-transform: rotate(315deg);
+        transform: rotate(315deg);   
+    }
+
+    .overlay-layer {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--#{$prefix}overlay-bg);
+        -webkit-transition: opacity 0.4s ease;
+        transition: opacity 0.4s ease;
+        opacity: 1;
+        
+        .overlay-opacity {
+            will-change: opacity; 
+            -webkit-transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .overlay-transform {
+            will-change: transform; 
+			-webkit-transition: transform .4s ease;
+			transition: transform .4s ease;
+            -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+        }
+    }
+
+    &.overlay-show,
+    &.overlay-block,
+    &:hover {
+        .overlay-layer {
+            -webkit-transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease;
+            opacity: 1;
+
+            .overlay-opacity {
+                -webkit-transition: opacity 0.4s ease;
+                transition: opacity 0.4s ease;
+                opacity: 1;
+            }
+
+            .overlay-transform {
+                -webkit-transition: transform .4s ease;
+                transition: transform .4s ease;
+                transform: translateY(0px);
+            }            
+        }
+    }
+
+    &.overlay-block {
+        cursor: auto;
+    }
+}

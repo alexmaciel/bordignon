@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>https://bordignonadvogados.com.br/</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://bordignonadvogados.com.br/site</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>  
+  <url>
+    <loc>https://bordignonadvogados.com.br/site/home</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>  
+  <url>
+    <loc>https://bordignonadvogados.com.br/site/empresa</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bordignonadvogados.com.br/site/servicos</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>   
+  <url>
+    <loc>https://bordignonadvogados.com.br/site/contato</loc>
+    <lastmod>2023-01-24T13:52:33+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+</urlset>

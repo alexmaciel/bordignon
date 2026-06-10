@@ -1,0 +1,215 @@
+<div class="modal-header">
+    <div class="modal-title h4">
+        <ng-container *ngIf="leads">
+            <ng-container *ngIf="leads.id">{{ 'title.editTitle' | translate }} </ng-container>
+            <ng-container *ngIf="!leads.id">{{ 'title.createTitle' | translate }}</ng-container>
+            <ng-container *ngIf="leads.id">{{'nav.leadsNav' | translate }}</ng-container>
+        </ng-container>           
+    </div>
+    <button 
+        type="button"
+        class="btn btn-icon btn-sm btn-close btn-active-light-primary" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close"  
+        (click)="modal.close()">
+        <app-keenicon name="cross" class="fs-1"></app-keenicon>
+    </button>   
+</div>
+<div 
+    class="modal-body py-10 px-lg-10"
+    [ngClass]="{'overlay overlay-block': isLoading$ | async}">
+    <!--Overlay Layer-->
+    <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-dark bg-opacity-5 z-index-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </ng-container>  
+    <ng-container *ngIf="leads">
+        <div class="pb-8 border-bottom">
+            <div class="d-flex justify-content-end">
+                <button 
+                    type="button" class="btn btn-primary fw-bolder" 
+                    (click)="convert_lead_to_customer(leads.id)">
+                    Converter para cliente
+                </button>          
+            </div>  
+        </div>
+    </ng-container>
+    <div 
+        id="kt_modal_update_client_scroll"
+        data-kt-scroll="true"
+        data-kt-scroll-activate="{default: false, lg: true}"
+        data-kt-scroll-max-height="auto"
+        data-kt-scroll-dependencies="#kt_modal_update_client_scroll"
+        data-kt-scroll-wrappers="#kt_modal_update_client_scroll"
+        data-kt-scroll-offset="300px"
+        style="max-height: 524px;"
+        class="d-flex flex-column scroll-y me-n7 pe-7">     
+        <ng-container *ngIf="leads">
+            <form action="#" class="form form-label-right mt-6" [formGroup]="formGroup">
+                <div class="row g-4 mb-7 fv-plugins-icon-container">
+                    <div class="col-6">
+                        <label class="form-label">Fonte</label>
+                        <select 
+                            class="form-select form-select-solid form-select-lg fw-bold" 
+                            [class.is-invalid]="isControlInvalid('source')" 
+                            name="source"
+                            formControlName="source">
+                            <ng-container *ngFor="let source of sources">
+                                <option [value]="source.id">{{source.name}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Status</label>
+                        <select 
+                            class="form-select form-select-solid form-select-lg fw-bold" 
+                            [class.is-invalid]="isControlInvalid('source')" 
+                            name="status"
+                            formControlName="status"
+                            readonly>
+                            <option [value]="'1'">Customer</option>
+                        </select>
+                    </div>                    
+                </div>                  
+                <div class="row g-4 mb-7 fv-plugins-icon-container">
+                    <div class="col-6">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.firstNameField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="name"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('name')"
+                            [class.is-valid]="isControlValid('name')"                        
+                            formControlName="name"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('name')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                    <div class="col-6">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.phoneField' | translate }}</label>
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input 
+                                type="text"
+                                name="phonenumber"
+                                class="form-control form-control-lg form-control-solid" 
+                                [class.is-invalid]="isControlInvalid('phonenumber')"
+                                [class.is-valid]="isControlValid('phonenumber')"                        
+                                formControlName="phonenumber"
+                            />
+                            <span class="input-group-text">
+                                <i class="fa fa-phone"></i>
+                            </span>                                
+                        </div>
+                        <div class="valid-feedback" *ngIf="isControlValid('phonenumber')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'phonenumber')">{{ 'form.propertyNameHelper' | translate }}</div>                    
+                    </div>  
+                    <div class="col-6">
+                        <label class="required fs-6 fw-semibold mb-2">{{ 'form.emailAddressField' | translate }}</label>
+                        <div class="input-group input-group-lg input-group-solid">
+                            <input 
+                                type="text"
+                                name="email"
+                                class="form-control form-control-lg form-control-solid" 
+                                [class.is-invalid]="isControlInvalid('email')"
+                                [class.is-valid]="isControlValid('email')"                        
+                                formControlName="email"
+                            />
+                            <span class="input-group-text">
+                                <i class="fa fa-envelope"></i>
+                            </span>    
+                        </div>                            
+                        <span class="form-text text-muted"></span>
+                        <div class="valid-feedback" *ngIf="isControlValid('email')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>  
+                    <div class="col-6">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.cityField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="city"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('city')"
+                            [class.is-valid]="isControlValid('city')"                        
+                            formControlName="city"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('city')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                    <div class="col-6">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.stateField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="state"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('state')"
+                            [class.is-valid]="isControlValid('state')"                        
+                            formControlName="state"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('state')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>
+                    <div class="col-6">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.addressField' | translate }}</label>
+                        <textarea 
+                            type="text"
+                            class="form-control form-control-lg form-control-solid"
+                            [class.is-invalid]="isControlInvalid('address')"
+                            [class.is-valid]="isControlValid('address')"
+                            name="address"
+                            formControlName="address"
+                            rows="1">
+                        </textarea>                                                
+                        <div class="valid-feedback" *ngIf="isControlValid('address')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>  
+                    <div class="col-6">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.propertyCompany' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="company"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('company')"
+                            [class.is-valid]="isControlValid('company')"                        
+                            formControlName="company"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('company')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>    
+                    <div class="col-6">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.zipField' | translate }}</label>
+                        <input 
+                            type="text"
+                            name="zip"
+                            class="form-control form-control-lg form-control-solid" 
+                            [class.is-invalid]="isControlInvalid('zip')"
+                            [class.is-valid]="isControlValid('zip')"                        
+                            formControlName="zip"
+                        />
+                        <div class="valid-feedback" *ngIf="isControlValid('zip')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                    </div>                                                                                                                                      
+                </div>  
+                <div class="fv-row fv-plugins-icon-container">
+                    <div class="col-12">
+                        <label class="fs-6 fw-semibold mb-2">{{ 'form.propertyNotesField' | translate }}</label>
+                        <textarea 
+                            type="text"
+                            class="form-control form-control-lg form-control-solid"
+                            [class.is-invalid]="isControlInvalid('description')"
+                            [class.is-valid]="isControlValid('description')"
+                            name="description"
+                            formControlName="description">
+                        </textarea>                                                
+                        <div class="valid-feedback" *ngIf="isControlValid('description')">{{ 'form.propertyfieldMsg' | translate }}</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'description')">{{ 'form.propertyMinimumReq' | translate:{min: '3'} }}</div>                       
+                        <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'description')">{{ 'form.propertyMaximumReq' | translate:{max: '250'} }}</div>                        
+                    </div>
+                </div>                 
+            </form>           
+        </ng-container>
+    </div>    
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light fw-bolder me-2" (click)="modal.close()">
+        {{ 'btn.cancelBtn' | translate }}
+    </button>
+    <ng-container *ngIf="leads">
+        <button type="submit" class="btn btn-primary fw-bolder" (click)="save()" [disabled]="formGroup.invalid">
+            {{ 'btn.saveBtn' | translate }}
+        </button>
+    </ng-container>
+</div>  

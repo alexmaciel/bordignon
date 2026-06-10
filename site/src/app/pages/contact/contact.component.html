@@ -1,0 +1,279 @@
+<div class="page-contact">
+    <section class="page-title">
+        <div class="app-content-container">
+            <div class="container-xxl">
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="d-flex flex-grow-1 flex-lg-grow-0 w-lg-25 d-none d-lg-block"></div>
+                    <div class="d-flex align-items-center justify-content-start flex-lg-grow-1 ms-0">
+                        <div class="d-flex flex-column flex-wrap">
+                            <h1 class="fs-4x fw-bold text-white">
+                                Contato
+                            </h1> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>    
+    <section class="pt-auto pt-lg-0">
+        <div class="app-content-container">
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-lg-5 col-xl-4">
+                        <h1 class="fs-2x fw-bold text-white">
+                            Como podemos te ajudar?               
+                        </h1>
+                        <div class="flex-column flex-lg-row-auto w-100">
+                            @if(settings.settings$ | async; as set) {
+                                <div class="text-white">
+                                    <div class="d-flex flex-row flex-wrap my-4">
+                                        <a href="tel:{{ set.company_phonenumber }}" class="btn btn-link fs-1 text-white me-4 mb-2 p-0" aria-label="telefone">
+                                            <span class="btn-title">
+                                                <span [title]="set.company_phonenumber">{{ set.company_phonenumber }}</span>
+                                            </span>                                                                                            
+                                        </a>  
+                                        @if(set.company_alt_phonenumber){
+                                            <a href="tel:{{ set.company_alt_phonenumber }}" target="_blank" class="btn btn-link fs-1 text-white mb-2 p-0" aria-label="telefone">
+                                                <span class="btn-title">
+                                                    <span [title]="set.company_alt_phonenumber">{{ set.company_alt_phonenumber }}</span>
+                                                </span> 
+                                            </a>   
+                                        }
+                                    </div>                                      
+                                    <div class="d-flex flex-column align-items-start">
+                                        <div>
+                                            <p class="mb-0" [innerHTML]="set.company_address"></p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0" [innerHTML]="set.company_city"></p>
+                                        </div>
+                                        <div>
+                                           <p class="mb-4" [innerHTML]="' CEP: ' + set.company_postal_code"></p>
+                                        </div>                                        
+                                    </div>                                      
+                                    <a href="mailto:{{ set.company_email }}" class="text-primary" aria-label="email">
+                                        <span class="btn-title">
+                                            <span [title]="set.company_email">{{ set.company_email }}</span>
+                                        </span>                              
+                                    </a>     
+                                    <!--
+                                        <div class="d-flex align-items-stretch">
+                                            <div class="d-flex flex-column">
+                                                <div class="d-flex align-items-stretch">
+                                                    <div class="d-flex align-items-center">                  
+                                                    </div>  
+                                                </div>                        
+                                            </div>
+                                        </div> 
+                                    -->                                                                          
+                                </div>
+                            }                                            
+                        </div>                            
+                    </div>
+                    <div class="col-lg-6 col-xl-6 offset-xl-2">
+                        <h1 class="fs-2x fw-bold text-white mb-8">
+                            Mande-nos uma mensagem              
+                        </h1>   
+                        <div class="d-flex flex-column flex-lg-row">
+                            <div class="flex-lg-row-fluid mb-10 mb-lg-0">                     
+                                <form action="#" class="form form-label-right" [formGroup]="formGroup">
+                                    <div class="form-group row mb-4">  
+                                        <div class="col-auto">
+                                            <input
+                                                type="radio"
+                                                class="btn-check"
+                                                id="contato"
+                                                value="Quero contratar"
+                                                name="subject"
+                                                formControlName="subject"
+                                            />
+                                            <label
+                                                for="contato"
+                                                class="btn btn-lg btn-secondary btn-outline btn-motion btn-active-motion-primary mb-4">
+                                                <span class="btn-title">Quero contratar</span>
+                                                <span class="btn-motion-ripple"><span></span></span> 
+                                            </label>                                                 
+                                        </div>  
+                                        <div class="col-auto">
+                                            <input
+                                                type="radio"
+                                                class="btn-check"
+                                                id="outro"
+                                                value="Outro Assunto"
+                                                name="subject"
+                                                formControlName="subject"
+                                            />
+                                            <label
+                                                for="outro"
+                                                class="btn btn-lg btn-secondary btn-outline btn-motion btn-active-motion-primary mb-4">
+                                                <span class="btn-title">Outro Assunto</span>
+                                                <span class="btn-motion-ripple"><span></span></span> 
+                                            </label>                                                 
+                                        </div>                             
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <input 
+                                                    type="text"
+                                                    name="firstname"
+                                                    id="firstname"
+                                                    [placeholder]="'Nome'"
+                                                    class="form-control form-control-lg form-control-solid" 
+                                                    [class.is-invalid]="isControlInvalid('firstname')"
+                                                    [class.is-valid]="isControlValid('firstname')"                        
+                                                    formControlName="firstname"
+                                                />    
+                                                <label for="firstname" class="form-label required">Nome</label>
+                                                <div class="valid-feedback" *ngIf="isControlValid('firstname')">O campo foi inserido corretamente.</div>
+                                                <div class="invalid-feedback" *ngIf="controlHasError('required', 'firstname')">O nome é um campo obrigatório.</div>                             
+                                                <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'firstname')">O campo deve ter pelo menos 3 caracteres.</div>                              
+                                                <div class="invalid-feedback" *ngIf="controlHasError('maxLength', 'firstname')">O campo deve ter no máximo 20 caracteres.</div>                                                                      
+                                            </div>     
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <input 
+                                                    type="text"
+                                                    name="lastname"
+                                                    [placeholder]="'Sobrenome;'"
+                                                    class="form-control form-control-lg form-control-solid" 
+                                                    [class.is-invalid]="isControlInvalid('lastname')"
+                                                    [class.is-valid]="isControlValid('lastname')"     
+                                                    formControlName="lastname"
+                                                />
+                                                <label for="lastname" class="form-label required">Sobrenome</label>
+                                                <div class="valid-feedback" *ngIf="isControlValid('lastname')">O campo foi inserido corretamente.</div>
+                                                <div class="invalid-feedback" *ngIf="controlHasError('required', 'lastname')">O sobrenome é um campo obrigatório.</div>                             
+                                                <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'lastname')">O campo deve ter pelo menos 3 caracteres.</div>                              
+                                                <div class="invalid-feedback" *ngIf="controlHasError('maxLength', 'lastname')">O campo deve ter no máximo 20 caracteres.</div>                                           
+                                            </div>
+                                        </div>                                                                                          
+                                    </div>  
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 mb-4">   
+                                            <div class="input-group input-group-lg input-group-solid">                                    
+                                                <div class="form-floating">  
+                                                    <input
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        type="email"
+                                                        name="email"
+                                                        [placeholder]="'E-mail'"
+                                                        [class.is-invalid]="isControlInvalid('email')"
+                                                        [class.is-valid]="isControlValid('email')" 
+                                                        formControlName="email" 
+                                                    />
+                                                    <label class="form-label required">E-mail</label>
+                                                </div>  
+                                                <div class="input-group-text">
+                                                    <svg-icon [src]="'./assets/images/mail.svg'" class="svg-icon svg-icon-6 m-0"></svg-icon>                       
+                                                </div>                                      
+                                            </div>                            
+                                            <div class="valid-feedback" *ngIf="isControlValid('email')">O campo foi inserido corretamente.</div>
+                                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">Campo é obrigatório.</div>                             
+                                            <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'email')">E-mail inválido.</div>                                 
+                                        </div>
+                                        <div class="col-lg-6 mb-4">    
+                                            <div formGroupName="country_phone">  
+                                                <div class="input-group input-group-lg input-group-solid">                                    
+                                                    <div class="form-floating">  
+                                                        <input
+                                                            type="phone"
+                                                            name="phonenumber"
+                                                            [placeholder]="'Telefone'"
+                                                            class="form-control form-control-lg form-control-solid"   
+                                                            [class.is-invalid]="isControlInvalid('country_phone')"
+                                                            [class.is-valid]="isControlValid('country_phone')"                                                                                                      
+                                                            formControlName="phonenumber"
+                                                        />
+                                                        <label class="form-label required">Telefone</label>
+                                                    </div>  
+                                                    <div class="input-group-text">
+                                                        <svg-icon [src]="'./assets/images/phone.svg'" class="svg-icon svg-icon-6 m-0"></svg-icon>
+                                                    </div>                                      
+                                                </div>                                                                          
+                                                <span class="form-text text-muted"></span>
+                                                <div class="valid-feedback" *ngIf="isControlValid('country_phone')">O campo foi inserido corretamente.</div>
+                                                <div class="invalid-feedback" *ngIf="controlHasError('required', 'country_phone')">Campo é obrigatório.</div>   
+                                                <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'country_phone')">Somente Números (ex. 9 9999 9999).</div>    
+                                            </div>                               
+                                        </div>                                                                                               
+                                    </div>                                             
+                                    <div class="form-group row mb-4">
+                                        <div class="col">
+                                            <quill-editor
+                                                name="message"
+                                                formControlName="message"
+                                                placeholder="Escreve sua mensagem"
+                                                [class.is-invalid]="isControlInvalid('message')"
+                                                [class.is-valid]="isControlValid('message')"                                       
+                                                class="form-control form-control-lg form-control-solid w-100">
+                                                <div quill-editor-toolbar>                                      
+                                                    <span class="ql-formats">
+                                                        <button class="ql-bold" [title]="'Bold'"></button>
+                                                        <button class="ql-italic" [title]="'Italic'"></button>
+                                                        <button class="ql-underline" [title]="'Undeline'"></button>
+                                                    </span>                            
+                                                    <span class="ql-formats">
+                                                        <button class="ql-clean" [title]="'Clean'"></button>
+                                                    </span>
+                                                </div>                                
+                                            </quill-editor>                                                                    
+                                            <div class="valid-feedback" *ngIf="isControlValid('message')">O campo foi inserido corretamente.</div>
+                                            <div class="invalid-feedback" *ngIf="controlHasError('required', 'message')">Escreva uma mensagem.</div>                             
+                                            <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'message')">O campo deve ter pelo menos 3 caracteres.</div>                                                                                      
+                                        </div>
+                                    </div>                                                                                                                     
+                                    <div class="form-group row mb-4">
+                                        <div class="col-lg-12">                                           
+                                            <div class="d-flex align-items-start justify-content-between">
+                                                <div class="form-check form-check-custom form-check-solid form-check-md w-md-400px">
+                                                    <input class="form-check-input" type="checkbox" formControlName="terms" id="politica" checked="checked" />
+                                                    <label class="form-check-label" for="politica">
+                                                        Estou de acordo com o tratamento dos dados enviados conforme a <a [routerLink]="['/tdu']" class="fw-semibold text-white">política de privacidade</a>
+                                                    </label>
+                                                </div>                                     
+                                                <div class="d-flex align-items-center py-3"> 
+                                                    <button type="submit" (click)="onSubmit()" [disabled]="formGroup.invalid" class="btn btn-icon-custom btn-outline text-white">
+                                                        <ng-container *ngIf="send.isLoading$ | async">
+                                                            <span class="indicator-progress" [style.display]="'block'">
+                                                                Enviando...
+                                                                <span
+                                                                    class="spinner-border spinner-border-sm align-middle m-2"
+                                                                ></span>
+                                                            </span>
+                                                        </ng-container>     
+                                                        <ng-container *ngIf="!(send.isLoading$ | async)">   
+                                                            <span class="btn-title">
+                                                                <span title="enviar" class="indicator-label">enviar</span>
+                                                            </span> 
+                                                            <span class="btn-icon">
+                                                                <svg-icon [src]="'./assets/images/plane.svg'" class="svg-icon svg-icon-primary"></svg-icon>               
+                                                            </span>      
+                                                        </ng-container>
+                                                    </button>               
+                                                </div>  
+                                            </div> 
+                                        </div>                        
+                                    </div>                                                                              
+                                </form>
+                                @if(alert) {
+                                    <div 
+                                        class="alert alert-dismissible p-5 my-4"
+                                        [class.bg-success]="alert"
+                                        [class.bg-danger]="!alert">
+                                        <!--Wrapper-->
+                                        <div class="d-flex flex-column text-white text-center">
+                                            <!--Content-->
+                                            <span>{{ message }}</span>
+                                        </div>                        
+                                    </div>
+                                }                                        
+                            </div>
+                        </div>                                                 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

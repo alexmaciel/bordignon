@@ -1,0 +1,2 @@
+export type ShowState = 'initial' | 'initial-default' | 'initial-thumbnail-image' | 'initial-virtual-image' | 'animation' | 'animation-end';
+export type ClosingState = 'initial' | 'reset-scale' | 'initial-styles' | 'animation' | 'animation-end';

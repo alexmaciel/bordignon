@@ -1,0 +1,21 @@
+@if(company.items$ | async; as item) {
+    <div class="row mb-8">
+        <div class="col-lg-4 col-xl-3">
+            <h1 class="fs-1 fw-bold text-primary mb-4">
+                Quem nós somos            
+            </h1>                 
+        </div>
+        <div class="col-lg-8 col-xl-8 offset-xl-1">
+            <div class="fs-4 text-primary mb-10">
+                <p [innerHTML]="item.description | safe:'html'"></p>
+            </div>   
+            <p>&nbsp;</p>
+            <a [routerLink]="['/escritorio']" class="btn btn-lg btn-outline btn-outline-primary btn-active-outline-primary btn-active-white btn-motion btn-active-motion-primary" aria-label="Saiba Mais">
+                <span class="btn-title">
+                    <span title="Saiba Mais">Saiba Mais</span>
+                </span>                                    
+                <span class="btn-motion-ripple"><span></span></span>
+            </a>                                      
+        </div>
+    </div>
+}              
